@@ -24,16 +24,19 @@ const AttendanceForm = () => {
     e.preventDefault();
     try {
       console.log("Submitting form data:", formData);
-      const response = await fetch("http://localhost:8000/addUser", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          Index_No: formData.index_No, // Ensure backend receives Index_No
-        }),
-      });
+      const response = await fetch(
+        "https://mini-project-uapc.onrender.com/addUser",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            Index_No: formData.index_No, // Ensure backend receives Index_No
+          }),
+        }
+      );
 
       const result = await response.json();
       if (response.ok) {
