@@ -1,0 +1,97 @@
+/* src/components/CardList.css */
+body {
+  background-color: #f0f8ff; /* Light blue background */
+  color: #000080; /* Navy blue text color */
+}
+
+.dashboard {
+  padding: 20px;
+  text-align: center;
+  background-color: #eef5fb; /* Very light blue background for the dashboard */
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 128, 0.2); /* Blue shadow */
+}
+
+h1 {
+  margin-bottom: 20px;
+  color: #000080; /* Navy blue text color */
+  text-align: left;
+  font-size: larger;
+}
+
+.courses-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.course-card {
+  background-color: #f1f7f7;
+  border: none;
+  border-radius: 8px;
+  width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 128, 0.2);
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.course-card:hover {
+  transform: scale(1.05);
+}
+
+.course-image {
+  width: 100%;
+  height: 60%;
+  object-fit: cover;
+}
+
+.course-info {
+  padding: 15px;
+  text-align: left;
+}
+
+.course-name {
+  margin: 0;
+  font-size: 1.2em;
+  color: #000004;
+}
+
+.registration-time {
+  color: #315758; /* Cadet blue text for registration time */
+}
+
+.add-course-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e0f7fa; /* Light cyan background for add course card */
+  border: 2px dashed #00bcd4; /* Cyan dashed border for add course card */
+  cursor: pointer;
+}
+
+.add-course-content {
+  text-align: center;
+  color: #000080; /* Navy blue text color */
+}
+
+.no-courses-card {
+  display: flex;
+  color: #315758;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff; /* White background for course cards */
+  border: none; /* Make the borders invisible */
+  border-radius: 8px;
+  width: 200px; /* Same width as other course cards */
+  height: 150px; /* Same height as course images */
+  box-shadow: 0 4px 8px rgba(0, 0, 128, 0.2); /* Blue shadow */
+}
+
+.no-courses {
+  color: #1f3436; /* Cadet blue text for no courses message */
+  margin: 0;
+}
+.Add-btn {
+  font-size: 6rem;
+}

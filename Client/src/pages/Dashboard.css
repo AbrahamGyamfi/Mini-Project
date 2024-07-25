@@ -1,0 +1,78 @@
+/* src/pages/Dashboard.css */
+.main {
+  margin-top: -3rem;
+  margin-left: -1rem;
+  width: 100%;
+  height: 100vh;
+}
+
+.Dash-container {
+  position: relative; /* Necessary for the pseudo-element positioning */
+  margin-top: 3rem;
+  padding: 3% 3% 3% 3%; /* Adjusted padding for better visibility */
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row; /* Ensure cards are inside the container */
+  align-items: center;
+  overflow: hidden; /* Hide overflow from the pseudo-element */
+
+  box-sizing: border-box;
+}
+
+.styled-container {
+  max-width: 100%;
+  max-height: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  font-size: 50px;
+  height: 120px;
+  font-weight: 200;
+  margin-bottom: 1rem;
+  text-align: center;
+  background-color: rgb(247, 249, 252);
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(
+    to right,
+    #858af9 0%,
+    #5858ff 50%,
+    #241df1 100%
+  ); /* Animated gradient */
+  animation: changeColor 3s infinite alternate; /* Animation for gradient */
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+@keyframes changeColor {
+  from {
+    background: linear-gradient(
+      to right,
+      #241df1 0%,
+      #5858ff 50%,
+      #858af9 100%
+    );
+  }
+  to {
+    background: linear-gradient(
+      to right,
+      #858af9 0%,
+      #5858ff 50%,
+      #241df1 100%
+    );
+  }
+}
+
+.Sub-header {
+  background-color: #ffff;
+  border-radius: 3px;
+  height: 3.5%;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}

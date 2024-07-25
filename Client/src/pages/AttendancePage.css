@@ -1,0 +1,17 @@
+.attendance-page {
+  display: flex;
+  flex-direction: column;
+  margin-left: 80px;
+  height: 100vh;
+  text-align: center;
+  padding: 50px;
+}
+
+.qr-code {
+  margin-top: 5em;
+  padding: 50px;
+}
+.heading {
+  margin-bottom: 2em;
+  padding: 1em;
+}
