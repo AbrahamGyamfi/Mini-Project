@@ -78,7 +78,20 @@ const AttendanceForm = () => {
               required
             />
           </label>
-          <button type="submit">Submit</button>
+          <button
+            type="submit"
+            style={{
+              width: "100px",
+              height: "30px",
+              backgroundColor: "green",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+            }}
+          >
+            Submit
+          </button>
         </form>
       )}
     </div>
