@@ -47,18 +47,30 @@ app.get("/getUsers", async (req, res) => {
 
 app.post("/addUser", async (req, res) => {
   console.log("Request received at /addUser:", req.body);
+
   const { name, Index_No } = req.body;
+
+  // Validate the request body
   if (!name || !Index_No) {
     console.log("Validation failed: Missing name or Index_No");
     return res.status(400).json({ message: "Name and Index_No are required" });
   }
+
   try {
+    // Create a new user
     const newUser = new UserModel({ name, Index_No });
     await newUser.save();
+
     console.log("User saved successfully:", newUser);
     res.status(201).json(newUser);
   } catch (error) {
-    console.error("Error adding user:", error);
+    // Handle specific error cases
+    if (error.code === 11000) {
+      // MongoDB duplicate key error code
+      return res.status(400).json({ message: "Index_No must be unique" });
+    }
+
+    console.error("Error adding user:", error.message);
     res.status(500).json({ message: "There was an error saving the user" });
   }
 });
