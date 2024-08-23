@@ -6,12 +6,14 @@ const AttendanceForm = () => {
   const [searchParams] = useSearchParams();
   const courseName = searchParams.get("courseName");
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
     index_No: "",
   });
 
+  // i
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -19,9 +21,9 @@ const AttendanceForm = () => {
       [name]: value,
     });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       console.log("Submitting form data:", formData);
       const response = await fetch(
@@ -31,10 +33,7 @@ const AttendanceForm = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            name: formData.name,
-            Index_No: formData.index_No, // Ensure backend receives Index_No
-          }),
+          body: JSON.stringify(formData),
         }
       );
 
@@ -48,8 +47,14 @@ const AttendanceForm = () => {
       }
     } catch (error) {
       console.error("There was an error during form submission:", error);
+    } finally {
+      setLoading(false);
     }
   };
+
+  if (loading) {
+    return <div>Loading .... </div>;
+  }
 
   return (
     <div className="attendance-form-page">
@@ -81,9 +86,10 @@ const AttendanceForm = () => {
           <button
             type="submit"
             style={{
-              width: "100px",
-              height: "30px",
+              width: "100px", // increase width
+              height: "40px", // adjust height
               backgroundColor: "green",
+              borderRadius: "8px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
