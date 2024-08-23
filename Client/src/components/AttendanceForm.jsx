@@ -10,40 +10,45 @@ const AttendanceForm = () => {
 
   const [formData, setFormData] = useState({
     name: "",
-    index_No: "",
+    Index_No: "", // Initialize with an empty string
   });
 
-  // i
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData((prevData) => ({
+      ...prevData,
       [name]: value,
-    });
+    }));
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
     try {
-      console.log("Submitting form data:", formData);
       const response = await fetch(
         "https://mini-project-uapc.onrender.com/addUser",
         {
+          // Ensure the port matches your backend
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify({
+            name: formData.name, // Ensure the field names match
+            Index_No: formData.Index_No,
+          }),
         }
       );
 
-      const result = await response.json();
       if (response.ok) {
-        setFormData({ name: "", index_No: "" });
-        console.log("Form submitted successfully:", result);
+        const newUser = await response.json(); // Get the new user data if needed
+        console.log("User added successfully:", newUser);
+        setFormData({ name: "", Index_No: "" }); // Reset form fields
         setSubmitted(true);
       } else {
-        console.error("Error submitting form:", result);
+        const result = await response.json();
+        console.error("Error submitting form:", result.message); // Log the specific error message
       }
     } catch (error) {
       console.error("There was an error during form submission:", error);
@@ -53,18 +58,40 @@ const AttendanceForm = () => {
   };
 
   if (loading) {
-    return <div>Loading .... </div>;
+    return (
+      <div
+        style={{
+          height: "100vh",
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        Loading...
+      </div>
+    );
+  }
+
+  if (submitted) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          height: "100vh",
+          width: "100%",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <p>Thank you for your submission!</p>
+      </div>
+    );
   }
 
   return (
     <div className="attendance-form-page">
       <h2>Attendance for {courseName}</h2>
-      {submitted && (
-        <div>
-          {" "}
-          <p>Thank you for your submission!</p>
-        </div>
-      )}
       <form onSubmit={handleSubmit} className="attendance-form">
         <label>
           Full Name:
@@ -80,8 +107,8 @@ const AttendanceForm = () => {
           Index Number:
           <input
             type="text"
-            name="index_No"
-            value={formData.index_No}
+            name="Index_No"
+            value={formData.Index_No}
             onChange={handleChange}
             required
           />
@@ -89,15 +116,15 @@ const AttendanceForm = () => {
         <button
           type="submit"
           style={{
-            width: "100px", // increase width
-            height: "40px", // adjust height
+            width: "100px",
+            height: "40px",
             backgroundColor: "green",
             borderRadius: "8px",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            textAlign: "center",
           }}
+          onClick={handleSubmit}
         >
           Submit
         </button>

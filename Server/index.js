@@ -6,15 +6,7 @@ const app = express();
 import bodyParser from "body-parser";
 
 dotenv.config();
-
-const corsOptions = {
-  // origin:'https://abc.onrender.com',
-  AccessControlAllowOrigin: "*",
-  origin: "http://192.168.137.218:3000",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -36,7 +28,7 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   Index_No: {
-    type: Number,
+    type: String,
     required: true,
     unique: true,
   },
@@ -55,16 +47,12 @@ app.get("/getUsers", async (req, res) => {
 
 app.post("/addUser", async (req, res) => {
   console.log("Request received at /addUser:", req.body);
-
+  const { name, Index_No } = req.body;
+  if (!name || !Index_No) {
+    console.log("Validation failed: Missing name or Index_No");
+    return res.status(400).json({ message: "Name and Index_No are required" });
+  }
   try {
-    const { name, Index_No } = req.body;
-    if (!name || !Index_No) {
-      console.log("Validation failed: Missing name or Index_No");
-      return res
-        .status(400)
-        .json({ message: "Name and Index_No are required" });
-    }
-
     const newUser = new UserModel({ name, Index_No });
     await newUser.save();
     console.log("User saved successfully:", newUser);
