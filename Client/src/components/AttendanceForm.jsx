@@ -40,8 +40,8 @@ const AttendanceForm = () => {
       const result = await response.json();
       if (response.ok) {
         setFormData({ name: "", index_No: "" });
-        setSubmitted(true);
         console.log("Form submitted successfully:", result);
+        setSubmitted(true);
       } else {
         console.error("Error submitting form:", result);
       }
@@ -59,47 +59,49 @@ const AttendanceForm = () => {
   return (
     <div className="attendance-form-page">
       <h2>Attendance for {courseName}</h2>
-      {submitted ? (
-        <p>Thank you for your submission!</p>
-      ) : (
-        <form onSubmit={handleSubmit} className="attendance-form" method="POST">
-          <label>
-            Full Name:
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <label>
-            Index Number:
-            <input
-              type="text"
-              name="index_No"
-              value={formData.index_No}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <button
-            type="submit"
-            style={{
-              width: "100px", // increase width
-              height: "40px", // adjust height
-              backgroundColor: "green",
-              borderRadius: "8px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              textAlign: "center",
-            }}
-          >
-            Submit
-          </button>
-        </form>
+      {submitted && (
+        <div>
+          {" "}
+          <p>Thank you for your submission!</p>
+        </div>
       )}
+      <form onSubmit={handleSubmit} className="attendance-form">
+        <label>
+          Full Name:
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <label>
+          Index Number:
+          <input
+            type="text"
+            name="index_No"
+            value={formData.index_No}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <button
+          type="submit"
+          style={{
+            width: "100px", // increase width
+            height: "40px", // adjust height
+            backgroundColor: "green",
+            borderRadius: "8px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+          }}
+        >
+          Submit
+        </button>
+      </form>
     </div>
   );
 };
