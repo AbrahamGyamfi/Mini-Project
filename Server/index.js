@@ -62,10 +62,11 @@ app.get("/getUsers", mongoConnection, async (req, res) => {
   }
 });
 
-app.post("/addUser", mongoConnection, async (req, res) => {
+app.post("/addUser", async (req, res) => {
   console.log("Request received at /addUser:", req.body);
 
-  const { name, Index_No } = req.body;
+  const { name, Index_No, course_name } = req.body;
+  console.log(name, " : ", Index_No, " : ", course_name);
 
   // Validate the request body
   if (!name || !Index_No) {
