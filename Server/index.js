@@ -25,7 +25,7 @@ const MONGOURL = process.env.MONGO_URL;
 // const course_name = "csm 377";
 
 const mongoConnection = async (req, res) => {
-  const course_name = Object.keys(req.query.course_name)
+  const course_name = req.query.course_name
     ? req.query.course_name
     : req.body.course_name;
   console.log("COURSE NAME FROM CONNECTION query: ", req.query);
