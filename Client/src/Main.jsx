@@ -29,6 +29,7 @@ function Main() {
         time: registrationTime,
       };
       setCourses([...courses, newCourse]);
+      window.localStorage.setItem("CourseName", courseName);
     }
   };
 

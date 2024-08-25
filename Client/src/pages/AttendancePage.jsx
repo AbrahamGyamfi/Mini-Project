@@ -13,9 +13,14 @@ const AttendancePage = () => {
 
   const downloadAttendanceList = async () => {
     try {
+      const course_name = window.localStorage.getItem("CourseName");
+      // .replace(" ", "")
+      // .toUpperCase();
+
+      console.log("COURSE NAME: ", course_name);
       // Fetch the attendance list data
       const response = await fetch(
-        "http://localhost:8000/api/attendance-list",
+        `${process.env.REACT_APP_LOCALHOST_SERVER}/api/attendance-list?course_name=${course_name}`,
         {
           method: "GET",
           headers: {

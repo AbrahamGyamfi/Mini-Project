@@ -2,26 +2,39 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
-const app = express();
-import bodyParser from "body-parser";
+// import bodyParser from "body-parser";
 
 dotenv.config();
-app.use(cors());
+
+const app = express();
+app.use(
+  cors({
+    origin: `${process.env.LOCALHOST_CLIENT}`,
+    methods: "GET, POST, PUT, PATCH, DELETE, HEAD",
+  })
+);
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
+
 // parse application/json
 
 const PORT = process.env.PORT || 7000;
 const MONGOURL = process.env.MONGO_URL;
+// const course_name = "csm 377";
 
-mongoose
-  .connect(MONGOURL)
-  .then(() => {
-    console.log("Database connected successfully");
-  })
-  .catch((error) => console.log("Database connection error:", error));
+const mongoConnection = async (req, res) => {
+  const { course_name } = req.query || req.body;
 
+  const url_mongo = `mongodb+srv://solution:solution17@cluster0.udyro6p.mongodb.net/${course_name}?retryWrites=true&w=majority&appName=Cluster0`;
+  mongoose
+    .connect(url_mongo)
+    .then(() => {
+      console.log("Database connected successfully");
+    })
+    .catch((error) => console.log("Database connection error:", error));
+};
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -36,20 +49,20 @@ const userSchema = new mongoose.Schema({
 
 const UserModel = mongoose.models.Users || mongoose.model("Users", userSchema);
 
-app.get("/getUsers", async (req, res) => {
+app.get("/getUsers", mongoConnection, async (req, res) => {
   try {
     const userData = await UserModel.find();
-    // console.log("USER DATA: ", userData);
+    console.log("USER DATA: ", userData);
     return res.status(200).json(userData);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-app.post("/addUser", async (req, res) => {
+app.post("/addUser", mongoConnection, async (req, res) => {
   console.log("Request received at /addUser:", req.body);
 
-  const { name, Index_No } = req.body;
+  const { name, Index_No, course_name } = req.body;
 
   // Validate the request body
   if (!name || !Index_No) {
@@ -78,12 +91,17 @@ app.post("/addUser", async (req, res) => {
 
 app.get("/api/attendance-list", async (req, res) => {
   try {
-    const response = await fetch("http://localhost:8000/getUsers", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const { course_name } = req.query;
+    console.log("COURSE NAME: ", course_name);
+    const response = await fetch(
+      `${process.env.LOCALHOST_SERVER}/getUsers?course_name=${course_name}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     if (!response.ok) {
       console.log("Error occur");
       return res

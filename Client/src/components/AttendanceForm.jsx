@@ -25,9 +25,14 @@ const AttendanceForm = () => {
     e.preventDefault();
     setLoading(true);
 
+    const course_name = window.localStorage.getItem("CourseName");
+    // .replace(" ", "")
+    // .toUpperCase();
+
     try {
+      console.log(process.env.REACT_APP_LOCALHOST_SERVER);
       const response = await fetch(
-        "https://mini-project-uapc.onrender.com/addUser",
+        `${process.env.REACT_APP_LOCALHOST_SERVER}/addUser`,
         {
           // Ensure the port matches your backend
           method: "POST",
@@ -37,6 +42,7 @@ const AttendanceForm = () => {
           body: JSON.stringify({
             name: formData.name, // Ensure the field names match
             Index_No: formData.Index_No,
+            course_name,
           }),
         }
       );
