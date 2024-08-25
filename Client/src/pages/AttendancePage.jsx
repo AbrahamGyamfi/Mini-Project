@@ -15,7 +15,7 @@ const AttendancePage = () => {
     try {
       // Fetch the attendance list data
       const response = await fetch(
-        "http://localhost:8000/api/attendance-list",
+        "https://mini-project-uapc.onrender.com/api/attendance-list",
         {
           method: "GET",
           headers: {
