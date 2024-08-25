@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import "./AttendanceForm.css";
 
@@ -7,17 +7,27 @@ const AttendanceForm = () => {
   const courseName = searchParams.get("courseName");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [course_name, setCourseName] = useState("");
+
+  console.log("COURSE NAME: ", course_name);
 
   const [formData, setFormData] = useState({
     name: "",
-    Index_No: "", // Initialize with an empty string
+    Index_No: "",
+    course_name: "",
   });
+
+  useEffect(() => {
+    const course_name = window.localStorage.getItem("CourseName");
+    setCourseName(course_name);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
+      [course_name]: course_name,
     }));
   };
 
@@ -25,7 +35,6 @@ const AttendanceForm = () => {
     e.preventDefault();
     setLoading(true);
 
-    const course_name = window.localStorage.getItem("CourseName");
     // .replace(" ", "")
     // .toUpperCase();
 
@@ -43,7 +52,7 @@ const AttendanceForm = () => {
           body: JSON.stringify({
             name: formData.name, // Ensure the field names match
             Index_No: formData.Index_No,
-            course_name: course_name,
+            course_name: formData.course_name,
           }),
         }
       );
@@ -54,7 +63,7 @@ const AttendanceForm = () => {
         const newUser = await response.json(); // Get the new user data if needed
         console.log("NEW USER: ", newUser);
         console.log("User added successfully:", newUser);
-        setFormData({ name: "", Index_No: "" }); // Reset form fields
+        setFormData({ name: "", Index_No: "", course_name: "" }); // Reset form fields
         setSubmitted(true);
       } else {
         const result = await response.json();
