@@ -43,7 +43,7 @@ const AttendanceForm = () => {
           body: JSON.stringify({
             name: formData.name, // Ensure the field names match
             Index_No: formData.Index_No,
-            course_name,
+            course_name: course_name,
           }),
         }
       );
