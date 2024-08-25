@@ -209,7 +209,7 @@ const AttendanceForm = () => {
           body: JSON.stringify({
             name: formData.name,
             Index_No: formData.Index_No,
-            course_name: formData.course_name,
+            course_name: courseName,
           }),
         }
       );
