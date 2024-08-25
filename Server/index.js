@@ -1,5 +1,5 @@
 import express from "express";
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 // import bodyParser from "body-parser";
@@ -62,7 +62,7 @@ app.get("/getUsers", mongoConnection, async (req, res) => {
   }
 });
 
-app.post("/addUser", async (req, res) => {
+app.post("/addUser", mongoConnection, async (req, res) => {
   console.log("Request received at /addUser:", req.body);
 
   const { name, Index_No, course_name } = req.body;
