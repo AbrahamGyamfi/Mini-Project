@@ -37,8 +37,10 @@ const mongoConnection = async (req, res) => {
     .connect(url_mongo)
     .then(() => {
       console.log("Database connected successfully");
+      return;
     })
     .catch((error) => console.log("Database connection error:", error));
+  return;
 };
 
 const userSchema = new mongoose.Schema({
@@ -66,8 +68,6 @@ app.get("/getUsers", mongoConnection, async (req, res) => {
 });
 
 app.post("/addUser", mongoConnection, async (req, res) => {
-  console.log("Request received at /addUser:", req.body);
-
   const { name, Index_No, course_name } = req.body;
   console.log(name, " : ", Index_No, " : ", course_name);
 
@@ -76,6 +76,7 @@ app.post("/addUser", mongoConnection, async (req, res) => {
     console.log("Validation failed: Missing name or Index_No");
     return res.status(400).json({ message: "Name and Index_No are required" });
   }
+  console.log("Request received at /addUser:", req.body);
 
   try {
     // Create a new user
