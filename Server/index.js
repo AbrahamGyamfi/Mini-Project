@@ -26,6 +26,7 @@ const MONGOURL = process.env.MONGO_URL;
 
 const mongoConnection = async (req, res) => {
   const { course_name } = req.query || req.body;
+  console.log("COURSE NAME FROM CONNECTION: ", course_name);
 
   const url_mongo = `mongodb+srv://solution:solution17@cluster0.udyro6p.mongodb.net/${course_name}?retryWrites=true&w=majority&appName=Cluster0`;
   mongoose
@@ -35,6 +36,7 @@ const mongoConnection = async (req, res) => {
     })
     .catch((error) => console.log("Database connection error:", error));
 };
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -62,7 +64,7 @@ app.get("/getUsers", mongoConnection, async (req, res) => {
 app.post("/addUser", mongoConnection, async (req, res) => {
   console.log("Request received at /addUser:", req.body);
 
-  const { name, Index_No, course_name } = req.body;
+  const { name, Index_No } = req.body;
 
   // Validate the request body
   if (!name || !Index_No) {

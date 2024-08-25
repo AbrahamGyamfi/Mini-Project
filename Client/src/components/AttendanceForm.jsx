@@ -29,6 +29,7 @@ const AttendanceForm = () => {
     // .replace(" ", "")
     // .toUpperCase();
 
+    console.log("Submit:::::::");
     try {
       console.log(process.env.REACT_APP_LOCALHOST_SERVER);
       const response = await fetch(
@@ -47,8 +48,11 @@ const AttendanceForm = () => {
         }
       );
 
+      console.log("Submited", response);
+
       if (response.ok) {
         const newUser = await response.json(); // Get the new user data if needed
+        console.log("NEW USER: ", newUser);
         console.log("User added successfully:", newUser);
         setFormData({ name: "", Index_No: "" }); // Reset form fields
         setSubmitted(true);
