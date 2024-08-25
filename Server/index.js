@@ -79,8 +79,7 @@ app.post("/addUser", mongoConnection, async (req, res) => {
 
   try {
     // Create a new user
-    const newUser = new UserModel.create({ name, Index_No });
-    await newUser.save();
+    const newUser = await UserModel.create({ name, Index_No });
 
     console.log("User saved successfully:", newUser);
     return res.status(201).json(newUser);
