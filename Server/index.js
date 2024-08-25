@@ -24,7 +24,7 @@ const PORT = process.env.PORT || 7000;
 const MONGOURL = process.env.MONGO_URL;
 // const course_name = "csm 377";
 
-const mongoConnection = async (req, res) => {
+const mongoConnection = async (req, res, next) => {
   const course_name = req.query.course_name
     ? req.query.course_name
     : req.body.course_name;
@@ -37,10 +37,10 @@ const mongoConnection = async (req, res) => {
     .connect(url_mongo)
     .then(() => {
       console.log("Database connected successfully");
-      return;
+      return next();
     })
     .catch((error) => console.log("Database connection error:", error));
-  return;
+  return next();
 };
 
 const userSchema = new mongoose.Schema({
