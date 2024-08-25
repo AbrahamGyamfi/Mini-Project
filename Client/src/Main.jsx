@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
-import Profile from "./pages/Profile";
 import CoursesPage from "./pages/CoursesPage";
 import Dashboard from "./pages/Dashboard";
-import LoginSignUp from "./pages/LogInSignUp";
 import "./components/Sidebar.css";
 import AttendancePage from "./pages/AttendancePage";
 import AttendanceForm from "./components/AttendanceForm";
@@ -45,14 +43,7 @@ function Main() {
             </Sidebar>
           }
         />
-        <Route
-          path="/loginsignup"
-          element={
-            <Sidebar>
-              <LoginSignUp />
-            </Sidebar>
-          }
-        />
+
         <Route
           path="/dashboard"
           element={
@@ -78,14 +69,6 @@ function Main() {
           }
         />
         <Route path="/attendance-form" element={<AttendanceForm />} />
-        <Route
-          path="/profile"
-          element={
-            <Sidebar>
-              <Profile />
-            </Sidebar>
-          }
-        />
       </Routes>
     </BrowserRouter>
   );

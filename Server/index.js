@@ -34,12 +34,13 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-const UserModel = mongoose.model("Users", userSchema);
+const UserModel = mongoose.models.Users || mongoose.model("Users", userSchema);
 
 app.get("/getUsers", async (req, res) => {
   try {
     const userData = await UserModel.find();
-    res.json(userData);
+    // console.log("USER DATA: ", userData);
+    return res.status(200).json(userData);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -72,6 +73,29 @@ app.post("/addUser", async (req, res) => {
 
     console.error("Error adding user:", error.message);
     res.status(500).json({ message: "There was an error saving the user" });
+  }
+});
+
+app.get("/api/attendance-list", async (req, res) => {
+  try {
+    const response = await fetch("http://localhost:8000/getUsers", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      console.log("Error occur");
+      return res
+        .status(400)
+        .json({ message: "Error occur fetching data from database" });
+    }
+    const data = await response.json();
+    // console.log("JSON RESPONSE: ", data);
+
+    return res.status(200).json({ message: "success", data: data });
+  } catch (error) {
+    console.log("Error from Backend");
   }
 });
 

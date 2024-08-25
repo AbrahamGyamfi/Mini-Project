@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Sidebar.css";
-import { FaBars, FaBook, FaTh, FaUser } from "react-icons/fa";
+import { FaBars, FaBook, FaTh } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
 const Sidebar = ({ children }) => {
@@ -16,11 +16,6 @@ const Sidebar = ({ children }) => {
       path: "/courses",
       name: "Courses",
       icon: <FaBook />,
-    },
-    {
-      path: "/profile",
-      name: "Profile",
-      icon: <FaUser />,
     },
   ];
   return (
@@ -43,7 +38,7 @@ const Sidebar = ({ children }) => {
               to={item.path}
               key={index}
               className="link"
-              activeclassName="active"
+              activeclassname="active"
             >
               <div className="icon">{item.icon}</div>
               <div
