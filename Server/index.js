@@ -26,7 +26,8 @@ const MONGOURL = process.env.MONGO_URL;
 
 const mongoConnection = async (req, res) => {
   const { course_name } = req.query || req.body;
-  console.log("COURSE NAME FROM CONNECTION: ", course_name);
+  console.log("COURSE NAME FROM CONNECTION query: ", req.query);
+  console.log("COURSE NAME FROM CONNECTION body: ", req.body);
 
   const url_mongo = `mongodb+srv://solution:solution17@cluster0.udyro6p.mongodb.net/${course_name}?retryWrites=true&w=majority&appName=Cluster0`;
   mongoose
