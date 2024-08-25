@@ -28,6 +28,7 @@ const mongoConnection = async (req, res) => {
   const { course_name } = req.query || req.body;
   console.log("COURSE NAME FROM CONNECTION query: ", req.query);
   console.log("COURSE NAME FROM CONNECTION body: ", req.body);
+  console.log("COURSE NAME: ", course_name);
 
   const url_mongo = `mongodb+srv://solution:solution17@cluster0.udyro6p.mongodb.net/${course_name}?retryWrites=true&w=majority&appName=Cluster0`;
   mongoose
@@ -76,11 +77,11 @@ app.post("/addUser", mongoConnection, async (req, res) => {
 
   try {
     // Create a new user
-    const newUser = new UserModel({ name, Index_No });
+    const newUser = new UserModel.create({ name, Index_No });
     await newUser.save();
 
     console.log("User saved successfully:", newUser);
-    res.status(201).json(newUser);
+    return res.status(201).json(newUser);
   } catch (error) {
     // Handle specific error cases
     if (error.code === 11000) {
