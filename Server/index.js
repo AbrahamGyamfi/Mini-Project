@@ -78,7 +78,7 @@ app.post("/addUser", async (req, res) => {
 
 app.get("/api/attendance-list", async (req, res) => {
   try {
-    const response = await fetch("http://localhost:8000/getUsers", {
+    const response = await fetch("https://mini-project-uapc.onrender.com/getUsers", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
