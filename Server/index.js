@@ -102,6 +102,7 @@ app.get("/api/attendance-list", async (req, res) => {
         },
       }
     );
+
     if (!response.ok) {
       console.log("Error occur");
       return res
