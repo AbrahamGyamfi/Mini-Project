@@ -92,7 +92,9 @@ app.post("/addUser", mongoConnection, async (req, res) => {
     }
 
     console.error("Error adding user:", error.message);
-    res.status(500).json({ message: "There was an error saving the user" });
+    return res
+      .status(500)
+      .json({ message: "There was an error saving the user" });
   }
 });
 
