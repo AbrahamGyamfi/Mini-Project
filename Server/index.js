@@ -141,6 +141,7 @@ const PORT = process.env.PORT || 7000;
 
 const mongoConnection = async (req, res, next) => {
   const course_name = req.query.course_name || req.body.course_name;
+  console.log("COURSE NAME: ", course_name.replace("").toUpperCase());
 
   const url_mongo = `mongodb+srv://solution:solution17@cluster0.udyro6p.mongodb.net/${course_name}?retryWrites=true&w=majority&appName=Cluster0`;
 
