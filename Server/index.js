@@ -177,18 +177,50 @@ app.get("/getUsers", mongoConnection, async (req, res) => {
   }
 });
 
+// app.post("/addUser", mongoConnection, async (req, res) => {
+//   const { name, Index_No } = req.body;
+
+//   try {
+//     const newUser = await UserModel.create({ name, Index_No });
+//     res.status(201).json(newUser);
+//   } catch (error) {
+//     if (error.code === 11000) {
+//       res.status(400).json({ message: "Index_No must be unique" });
+//     } else {
+//       res.status(500).json({ message: "There was an error saving the user" });
+//     }
+//   }
+// });
 app.post("/addUser", mongoConnection, async (req, res) => {
-  const { name, Index_No } = req.body;
+  const { name, Index_No, course_name } = req.body;
+  console.log(name, " : ", Index_No, " : ", course_name);
+
+  // Validate the request body
+  if (!name || !Index_No) {
+    console.log("Validation failed: Missing name or Index_No");
+    return res.status(400).json({ message: "Name and Index_No are required" });
+  }
+  console.log("Request received at /addUser:", req.body);
 
   try {
+    // Create a new user
     const newUser = await UserModel.create({ name, Index_No });
-    res.status(201).json(newUser);
+
+    console.log("User saved successfully:", newUser);
+    return res.status(201).json(newUser);
   } catch (error) {
+    // Handle specific error cases
     if (error.code === 11000) {
-      res.status(400).json({ message: "Index_No must be unique" });
-    } else {
-      res.status(500).json({ message: "There was an error saving the user" });
+      // MongoDB duplicate key error code
+      console.error("Duplicate Index_No:", Index_No);
+      return res.status(400).json({ message: "Index_No must be unique" });
     }
+
+    console.error("Error adding user:", error.message);
+    // Catch all other errors
+    return res
+      .status(500)
+      .json({ message: "There was an error saving the user" });
   }
 });
 
