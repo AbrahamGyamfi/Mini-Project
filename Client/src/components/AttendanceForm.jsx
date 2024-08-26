@@ -29,45 +29,6 @@ const AttendanceForm = () => {
     }));
   }, []);
 
-  // const handleGeolocation = useCallback(() => {
-  //   if (navigator.geolocation) {
-  //     const watchId = navigator.geolocation.watchPosition(
-  //       (position) => {
-  //         const userLoc = {
-  //           lat: position.coords.latitude,
-  //           lng: position.coords.longitude,
-  //         };
-  //         console.log("User Location: ", userLoc);
-  //         setCurrentUserPosition(userLoc);
-  //       },
-  //       (error) => {
-  //         console.log("Error getting the user location: ", error);
-  //       },
-  //       {
-  //         enableHighAccuracy: true,
-  //         maximumAge: 0,
-  //         timeout: 30000,
-  //       }
-  //     );
-
-  //     return () => {
-  //       navigator.geolocation.clearWatch(watchId);
-  //     };
-  //   } else {
-  //     console.error("Geolocation is not supported by this browser.");
-  //   }
-  // }, [setCurrentUserPosition]);
-
-  // useEffect(() => {
-  //   console.log("Geolocation: ", currentPosition);
-  //   const cleanup = handleGeolocation();
-  //   return cleanup;
-  // }, [handleGeolocation, currentPosition]);
-
-  ///////////////////////////////
-
-  // import React, { useState, useEffect } from "react";
-
   // Function to calculate the distance between two latitude-longitude points
   const getDistanceFromLatLonInKm = useCallback((lat1, lon1, lat2, lon2) => {
     const R = 6371; // Radius of the earth in km
@@ -100,7 +61,7 @@ const AttendanceForm = () => {
     };
 
     // Desired range in kilometers
-    const range = 1; // Replace with your desired range
+    const range = 0.2; // Replace with your desired range
 
     // Get user's current location
     if (navigator.geolocation) {
@@ -128,22 +89,6 @@ const AttendanceForm = () => {
     }
   }, [getDistanceFromLatLonInKm]);
 
-  // return (
-  //   <div>
-  //     {isWithinRange === null ? (
-  //       <p>Checking location...</p>
-  //     ) : isWithinRange ? (
-  //       <p>You are within the specified location range.</p>
-  //     ) : (
-  //       <p>You are outside the specified location range.</p>
-  //     )}
-  //   </div>
-  // );
-  // };
-
-  // export default LocationChecker;
-
-  ////////////////////////////
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
