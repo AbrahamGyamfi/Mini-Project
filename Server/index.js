@@ -28,9 +28,7 @@ const mongoConnection = async (req, res, next) => {
   const courseName = req.query.course_name
     ? req.query.course_name
     : req.body.course_name;
-  console.log("COURSE NAME FROM CONNECTION query: ", req.query);
-  console.log("COURSE NAME FROM CONNECTION body: ", req.body);
-  console.log("COURSE NAME: ", course_name);
+
   const course_name = courseName.replace("").toUpperCase();
 
   const url_mongo = `mongodb+srv://solution:solution17@cluster0.udyro6p.mongodb.net/${course_name}?retryWrites=true&w=majority&appName=Cluster0`;
