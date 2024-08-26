@@ -76,18 +76,18 @@ app.post("/addUser", mongoConnection, async (req, res) => {
   //   return res.status(400).json({ message: "Name and Index_No are required" });
   // }
 
-  try {
-    // Create a new user
-    const newUser = await UserModel.create({ name, Index_No });
-    // if (newUser) {
-    // return res.status(201).json(newUser);
-    // }
-    return res.status(201).json(newUser);
-  } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "There was an error saving the user" });
-  }
+  // try {
+  // Create a new user
+  await UserModel.create({ name, Index_No });
+  // if (newUser) {
+  // return res.status(201).json(newUser);
+  // }
+  return res.status(201).json({ message: "here was an error saving the user" });
+  // } catch (error) {
+  //   return res
+  //     .status(500)
+  //     .json({ message: "There was an error saving the user" });
+  // }
 });
 
 app.get("/api/attendance-list", async (req, res) => {
