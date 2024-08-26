@@ -79,7 +79,13 @@ app.post("/addUser", mongoConnection, async (req, res) => {
   try {
     // Create a new user
     const newUser = await UserModel.create({ name, Index_No });
-    return res.status(201).json(newUser);
+    if (newUser) {
+      return res.status(201).json(newUser);
+    } else {
+      return res
+        .status(500)
+        .json({ message: "There was an error saving the user" });
+    }
   } catch (error) {
     res.status(500).json({ message: "There was an error saving the user" });
   }
