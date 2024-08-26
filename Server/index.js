@@ -61,7 +61,6 @@ const UserModel = mongoose.models.Users || mongoose.model("Users", userSchema);
 app.get("/getUsers", mongoConnection, async (req, res) => {
   try {
     const userData = await UserModel.find();
-    console.log("USER DATA: ", userData);
     return res.status(200).json(userData);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -94,7 +93,6 @@ app.post("/addUser", mongoConnection, async (req, res) => {
 app.get("/api/attendance-list", async (req, res) => {
   try {
     const { course_name } = req.query;
-    console.log("COURSE NAME: ", course_name);
     const response = await fetch(
       `${process.env.LOCALHOST_SERVER}/getUsers?course_name=${course_name}`,
       {
@@ -112,8 +110,6 @@ app.get("/api/attendance-list", async (req, res) => {
         .json({ message: "Error occur fetching data from database" });
     }
     const data = await response.json();
-    // console.log("JSON RESPONSE: ", data);
-
     return res.status(200).json({ message: "success", data: data });
   } catch (error) {
     console.log("Error from Backend");
