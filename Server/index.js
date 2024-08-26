@@ -68,22 +68,20 @@ app.get("/getUsers", mongoConnection, async (req, res) => {
 });
 
 app.post("/addUser", mongoConnection, async (req, res) => {
-  const { name, Index_No, course_name } = req.body;
+  const { name, Index_No } = req.body;
 
   // Validate the request body
-  if (!name || !Index_No) {
-    console.log("Validation failed: Missing name or Index_No");
-    return res.status(400).json({ message: "Name and Index_No are required" });
-  }
+  // if (!name || !Index_No) {
+  //   console.log("Validation failed: Missing name or Index_No");
+  //   return res.status(400).json({ message: "Name and Index_No are required" });
+  // }
 
   try {
     // Create a new user
     const newUser = await UserModel.create({ name, Index_No });
     return res.status(201).json(newUser);
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "There was an error saving the user" });
+    res.status(500).json({ message: "There was an error saving the user" });
   }
 });
 
